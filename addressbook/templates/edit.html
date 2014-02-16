@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>Modify entry</h2>
+<form action="{{ url_for('edit_entry',post_id=post_id)}}" method=post class=add-entry>
+    {{ form.hidden_tag() }}
+    <dl>
+        <dt>{{ form.first_name.label }}
+        <dd>{{ form.first_name(size=20) }}
+        <dt>{{ form.last_name.label }} 
+        <dd>{{ form.last_name(size=20) }}
+        <dt>{{ form.phone_number.label }}
+        <dd>{{ form.phone_number(size=20) }}
+        <dd><input type="submit" value="Submit changes">
+    </dl>
+</form>
+{% endblock %}

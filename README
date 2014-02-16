@@ -1,0 +1,104 @@
+Flask Addressbook
+~~~~~~~~~~~~~~
+
+A simple application that shows how Flask can be used along with jquery to
+create an address book and searching names and phone numbers.
+
+:copyright: (c) 2014 by Dario Coco
+:license: GPLv3, see LICENSE for more details.
+
+Installation instructions:
+~~~~~~~~~~~~~~
+
+* Linux(Debian based distros):
+--------------
+
+If you don't have python 2.7 and pip installed, consider to launch these commands:
+
+sudo apt-get install python2.7
+sudo apt-get install python-pip
+
+With pip, install all the other requirements listed in the Requirements section
+of this document, using the command:
+
+sudo pip install library_name
+
+or, if you want to be sure to install the exact version, to avoid possible conflicts:
+
+sudo pip install library_name==version
+
+If you have problems or conflicts with other versions of the same libraries in your system,
+you should consider to use virtualenv.
+You can install virtualenv with the following command:
+
+sudo apt-get install virtualenv
+
+After installation, you should activate virtualenv from your application folder:
+
+cd ~/path_to_addressbook
+virtualenv venv --distribute
+source venv/bin/activate
+
+And then you can safely install all the requirements with pip:
+
+sudo pip install library_name==version
+
+Other Operating systems:
+--------------
+
+You can basically follow the debian instructions, but you have to install:
+-python2.7
+-python-pip
+-python-virtualenv
+
+from the binaries provided for your system.
+Then you should be able to install other dependencies with pip.
+
+Requirements:
+~~~~~~~~~~~~~~
+Flask==0.10.1
+Flask-SQLAlchemy==1.0
+Flask-WTF==0.9.4
+gunicorn==18.0
+psycopg2==2.5.2
+
+Requirements dependencies (automatically resolved by pip):
+~~~~~~~~~~~~~~
+Jinja2==2.7.2
+MarkupSafe==0.18
+SQLAlchemy==0.9.2
+WTForms==1.0.5
+Werkzeug==0.9.4
+argparse==1.2.1
+distribute==0.6.34
+itsdangerous==0.23
+wsgiref==0.1.2
+
+Running the application (DEBUG MODE):
+~~~~~~~~~~~~~~
+
+* With flask built-in server
+--------------
+python runserver.py
+
+* With gunicorn:
+--------------
+foreman start
+
+Deploying to heroku:
+~~~~~~~~~~~~~~
+
+If you cloned this repo, you basically have to digit these commands:
+
+heroku create
+
+heroku addons:add heroku-postgresql:dev
+
+heroku config | grep HEROKU_POSTGRESQL
+
+heroku pg:promote HEROKU_POSTGRESQL_#COLOR#_URL 
+(replace COLOR basing on the output of the preceding command)
+
+git push heroku master
+
+heroku open
