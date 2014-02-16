@@ -46,7 +46,7 @@ POST: When form is submitted, fields are validated (see the models module).
 '''
 @app.route('/add', methods=['GET','POST'])
 def add_entry():
-    form = PhoneNumbersForm()
+    form = PhoneNumbersForm(csrf_enabled = not app.config['TESTING'])
     if form.validate_on_submit():
         entry = Entry(form.first_name.data, form.last_name.data, form.phone_number.data)
         db.session.add(entry)
@@ -62,7 +62,7 @@ POST: update the entry with the new date, validating the form on submit (see the
 '''
 @app.route('/edit/<post_id>', methods=['GET','POST'])
 def edit_entry(post_id):
-    form = PhoneNumbersForm()
+    form = PhoneNumbersForm(csrf_enabled = not app.config['TESTING'])
     entry = Entry.query.filter_by(id=post_id).first()
     if entry == None:
         return redirect(url_for('home'))
