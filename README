@@ -101,4 +101,9 @@ heroku pg:promote HEROKU_POSTGRESQL_#COLOR#_URL
 
 git push heroku master
 
+heroku run python
+> from addressbook import db
+> db.create_all()
+> exit()
+
 heroku open
