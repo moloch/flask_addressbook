@@ -77,6 +77,24 @@ wsgiref==0.1.2
 Running the application (DEBUG MODE):
 ~~~~~~~~~~~~~~
 
+Before the first run of the application, you must create a database schema.
+To do that, create a database with the DBMS you like most(check which ones are supported
+by SQLAlchemy), then export this environment variable:
+
+export DATABASE_URL=postgresql://postgres:postgres@localhost/addressbook
+
+You can replace postgresql with mysql or sqlite in the connection string.
+The connection string syntax is:
+
+driver://user:pass@hostname/schema
+
+After that, you can run these commands to create the tables:
+
+python
+> from addressbook import db
+> db.create_all()
+> exit()
+
 * With flask built-in server
 --------------
 python runserver.py
