@@ -12,7 +12,20 @@
 import re
 from flask_wtf import Form
 from wtforms import TextField
-from wtforms.validators import DataRequired, Regexp
+from wtforms.validators import DataRequired, Regexp, ValidationError
+
+class RegexpExactMatch(Regexp):
+
+    def __call__(self, form, field, message=None):
+        match = self.regex.match(field.data or '')
+        if not match or len(match.group(0)) < len(field.data):
+            if message is None:
+                if self.message is None:
+                    message = field.gettext('Invalid input.')
+                else:
+                    message = self.message
+            raise ValidationError(message)
+        
 
 # WTF Form to send a new entry data to our server
 # It includes validation and CRSF token, because it extends the WTForms class Form
@@ -30,4 +43,4 @@ class PhoneNumbersForm(Form):
 
     first_name = TextField('First name', validators=[DataRequired()])
     last_name = TextField('Last name', validators=[DataRequired()])
-    phone_number = TextField('Phone number', validators=[Regexp(_prog)])
+    phone_number = TextField('Phone number', validators=[RegexpExactMatch(_prog)])
